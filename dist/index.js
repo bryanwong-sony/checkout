@@ -1697,9 +1697,8 @@ function getInputs() {
         result.repositoryName = splitRepository[1];
         // Repository path
         result.repositoryPath = core.getInput('path') || '.';
-        result.repositoryPath = path.resolve(githubWorkspacePath, result.repositoryPath);
-        if (!(result.repositoryPath + path.sep).startsWith(githubWorkspacePath + path.sep)) {
-            throw new Error(`Repository path '${result.repositoryPath}' is not under '${githubWorkspacePath}'`);
+        if (!path.isAbsolute(result.repositoryPath)) {
+            result.repositoryPath = path.resolve(githubWorkspacePath, result.repositoryPath);
         }
         // Workflow repository?
         const isWorkflowRepository = qualifiedRepository.toUpperCase() ===
