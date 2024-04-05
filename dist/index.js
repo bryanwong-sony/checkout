@@ -787,6 +787,7 @@ class GitCommandManager {
             if (recursive) {
                 args.push('--recursive');
             }
+            args.push('--jobs', os.cpus().length);
             yield this.execGit(args);
         });
     }
