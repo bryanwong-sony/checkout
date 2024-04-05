@@ -3,6 +3,7 @@ import * as exec from '@actions/exec'
 import * as fs from 'fs'
 import * as fshelper from './fs-helper'
 import * as io from '@actions/io'
+import * as os from 'os'
 import * as path from 'path'
 import * as refHelper from './ref-helper'
 import * as regexpHelper from './regexp-helper'
@@ -408,6 +409,8 @@ class GitCommandManager {
     if (recursive) {
       args.push('--recursive')
     }
+
+    args.push('--jobs', os.cpus().length)
 
     await this.execGit(args)
   }
